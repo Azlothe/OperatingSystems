@@ -1,0 +1,35 @@
+    1  eclipse
+    2  vi
+    3  sudo apt install gcc
+    4  sudo apt install make
+    5  clion
+    6  sudo snap install clion
+    7  kate
+    8  gcc
+    9  make
+   10  nano
+   11  ./1_16
+   12  gcc -o 1_17 1_17.c
+   13  gcc -o 1_18 1_18.c
+   14  ./1_18
+   15  gcc -o 1_19 1_19.c
+   16  ./1_19
+   17  gcc -o 1_19 1_19.c
+   18  ./1_19
+   19  gcc -o 1_19 1_19.c
+   20  ./1_19
+   21  gcc -o 1_19 1_19.c
+   22  ./1_19
+   23  gcc -o 1_20 1_20.c
+   24  ./1_20
+   25  gcc -o 1_20 1_20.c
+   26  ./1_20
+   27  gcc -o 1_17 1_17.c
+   28  cd ~
+   29  cd Desktop/test
+   30  gcc -o 1_17 1_17.c
+   31  ./1_17
+   32  history
+   33  cd ~
+   34  cd Desktop/cs149/WS1
+   35  history > cmds.log
