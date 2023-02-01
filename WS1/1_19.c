@@ -1,3 +1,11 @@
+/**
+ * Description: This takes integer inputs and prints out math operations
+ * Author names: Brian Qian
+ * Author emails: brian.qian@sjsu.edu
+ * Last modified date: 2/1/2023
+ * Creation date: 1/30/2023
+ **/
+
 #include <stdio.h>
 
 int main(void) {
