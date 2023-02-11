@@ -1,0 +1,151 @@
+    1  eclipse
+    2  vi
+    3  sudo apt install gcc
+    4  sudo apt install make
+    5  clion
+    6  sudo snap install clion
+    7  kate
+    8  gcc
+    9  make
+   10  nano
+   11  ./1_16
+   12  gcc -o 1_17 1_17.c
+   13  gcc -o 1_18 1_18.c
+   14  ./1_18
+   15  gcc -o 1_19 1_19.c
+   16  ./1_19
+   17  gcc -o 1_19 1_19.c
+   18  ./1_19
+   19  gcc -o 1_19 1_19.c
+   20  ./1_19
+   21  gcc -o 1_19 1_19.c
+   22  ./1_19
+   23  gcc -o 1_20 1_20.c
+   24  ./1_20
+   25  gcc -o 1_20 1_20.c
+   26  ./1_20
+   27  g++ --version
+   28  sudo apt install gcc g++
+   29  gcc --version
+   30  cd Desktop
+   31  ls
+   32  cd cs149
+   33  ls
+   34  cd WS1
+   35  ls
+   36  cat 1_17.c
+   37  cd ~
+   38  cd Desktop/test
+   39  ls
+   40  gcc -o 2_25 2_25.c
+   41  ./2_25
+   42  gcc -o 2_25 2_25.c
+   43  ./2_25
+   44  gcc -o 2_25 2_25.c
+   45  ./2_25
+   46  gcc -o 2_25 2_25.c
+   47  ./2_25
+   48  gcc -o 2_25 2_25.c
+   49  ./2_25
+   50  gcc -o 2_25 2_25.c
+   51  ./2_25
+   52  gcc -o 2_25 2_25.c
+   53  ./2_25
+   54  gcc -o 2_25 2_25.c
+   55  ./2_25
+   56  gcc -o 2_25 2_25.c
+   57  ./2_25
+   58  gcc -o 2_25 2_25.c
+   59  ./2_25
+   60  gcc -o 2_25 2_25.c
+   61  ./2_25
+   62  gcc -o 2_25 2_25.c
+   63  ./2_25
+   64  gcc -o 2_25 2_25.c
+   65  ./2_25
+   66  gcc -o 2_25 2_25.c
+   67  ./2_25
+   68  gcc -o 2_34 2_34.c
+   69  ./2_34
+   70  gcc -o 2_34 2_34.c
+   71  ./2_34
+   72  echo $
+   73  gcc -o 3_22 3_22.c
+   74  ./3_22
+   75  gcc -o 3_22 3_22.c
+   76  ./3_22
+   77  gcc -o 3_22 3_22.c
+   78  ./3_22
+   79  gcc -o 2_32 2_32.c
+   80  ./2_32
+   81  gcc -o 2_32 2_32.c
+   82  ./2_32
+   83  gcc -o 2_32 2_32.c
+   84  ./2_32
+   85  gcc -o 2_32 2_32.c
+   86  ./2_32
+   87  gcc -o 2_32 2_32.c
+   88  ./2_32
+   89  gcc -o 2_29 2_29.c
+   90  ./2_32
+   91  ./2_29
+   92  gcc -o 2_29 2_29.c
+   93  ./2_29
+   94  gcc -o 2_29 2_29.c
+   95  ./2_29
+   96  gcc -o 2_29 2_29.c
+   97  ./2_29
+   98  gcc -o 2_29 2_29.c
+   99  ./2_29
+  100  gcc -o 2_29 2_29.c
+  101  ./2_29
+  102  gcc -o 2_29 2_29.c
+  103  gcc -o 2_29 2_29.c -lm
+  104  ./2_29
+  105  gcc -o 2_29 2_29.c -lm
+  106  ./2_29
+  107  gcc -o 2_29 2_29.c -lm
+  108  ./2_29
+  109  gcc -o 2_29 2_29.c -lm
+  110  ./2_29
+  111  gcc -o 2_29 2_29.c -lm
+  112  ./2_29
+  113  gcc -o 2_29 2_29.c -lm
+  114  ./2_29
+  115  gcc -o 2_29 2_29.c -lm
+  116  ./2_29
+  117  gcc -o 2_25 2_25.c
+  118  ./2_25
+  119  gcc -o 2_29 2_29.c
+  120  gcc -o 2_29 2_29 -lmath\
+  121  gcc -o 2_29 2_29 -lmath
+  122  gcc -o 2_29 2_29.c -lmath
+  123  gcc -o 2_29 2_29.c -lm
+  124  ./2_29
+  125  man gcc
+  126  ./2_29
+  127  history
+  128  hisotry
+  129  history
+  130  kate
+  131  history
+  132  cd ~
+  133  cd Desktop/cs149/WS1
+  134  ls
+  135  cat 1_18.c
+  136  echo $?
+  137  man ps
+  138  ps aux
+  139  man grep
+  140  ps aux | grep kate
+  141  history
+  142  top
+  143  man top
+  144  top -o cpu
+  145  top -o mem
+  146  top -o %MEM
+  147  top -o %CPU
+  148  ps aux | grep 1166
+  149  cd ~
+  150  cd Desktop/cs149/WS2
+  151  history > worksheet2.log
