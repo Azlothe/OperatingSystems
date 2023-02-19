@@ -1,0 +1,234 @@
+    1  eclipse
+    2  vi
+    3  sudo apt install gcc
+    4  sudo apt install make
+    5  clion
+    6  sudo snap install clion
+    7  kate
+    8  gcc
+    9  make
+   10  nano
+   11  ./1_16
+   12  gcc -o 1_17 1_17.c
+   13  gcc -o 1_18 1_18.c
+   14  ./1_18
+   15  gcc -o 1_19 1_19.c
+   16  ./1_19
+   17  gcc -o 1_19 1_19.c
+   18  ./1_19
+   19  gcc -o 1_19 1_19.c
+   20  ./1_19
+   21  gcc -o 1_19 1_19.c
+   22  ./1_19
+   23  gcc -o 1_20 1_20.c
+   24  ./1_20
+   25  gcc -o 1_20 1_20.c
+   26  ./1_20
+   27  g++ --version
+   28  sudo apt install gcc g++
+   29  gcc --version
+   30  cd Desktop
+   31  ls
+   32  cd cs149
+   33  ls
+   34  cd WS1
+   35  ls
+   36  cat 1_17.c
+   37  cd ~
+   38  cd Desktop/test
+   39  ls
+   40  gcc -o 2_25 2_25.c
+   41  ./2_25
+   42  gcc -o 2_25 2_25.c
+   43  ./2_25
+   44  gcc -o 2_25 2_25.c
+   45  ./2_25
+   46  gcc -o 2_25 2_25.c
+   47  ./2_25
+   48  gcc -o 2_25 2_25.c
+   49  ./2_25
+   50  gcc -o 2_25 2_25.c
+   51  ./2_25
+   52  gcc -o 2_25 2_25.c
+   53  ./2_25
+   54  gcc -o 2_25 2_25.c
+   55  ./2_25
+   56  gcc -o 2_25 2_25.c
+   57  ./2_25
+   58  gcc -o 2_25 2_25.c
+   59  ./2_25
+   60  gcc -o 2_25 2_25.c
+   61  ./2_25
+   62  gcc -o 2_25 2_25.c
+   63  ./2_25
+   64  gcc -o 2_25 2_25.c
+   65  ./2_25
+   66  gcc -o 2_25 2_25.c
+   67  ./2_25
+   68  gcc -o 2_34 2_34.c
+   69  ./2_34
+   70  gcc -o 2_34 2_34.c
+   71  ./2_34
+   72  echo $
+   73  gcc -o 3_22 3_22.c
+   74  ./3_22
+   75  gcc -o 3_22 3_22.c
+   76  ./3_22
+   77  gcc -o 3_22 3_22.c
+   78  ./3_22
+   79  gcc -o 2_32 2_32.c
+   80  ./2_32
+   81  gcc -o 2_32 2_32.c
+   82  ./2_32
+   83  gcc -o 2_32 2_32.c
+   84  ./2_32
+   85  gcc -o 2_32 2_32.c
+   86  ./2_32
+   87  gcc -o 2_32 2_32.c
+   88  ./2_32
+   89  gcc -o 2_29 2_29.c
+   90  ./2_32
+   91  ./2_29
+   92  gcc -o 2_29 2_29.c
+   93  ./2_29
+   94  gcc -o 2_29 2_29.c
+   95  ./2_29
+   96  gcc -o 2_29 2_29.c
+   97  ./2_29
+   98  gcc -o 2_29 2_29.c
+   99  ./2_29
+  100  gcc -o 2_29 2_29.c
+  101  ./2_29
+  102  gcc -o 2_29 2_29.c
+  103  gcc -o 2_29 2_29.c -lm
+  104  ./2_29
+  105  gcc -o 2_29 2_29.c -lm
+  106  ./2_29
+  107  gcc -o 2_29 2_29.c -lm
+  108  ./2_29
+  109  gcc -o 2_29 2_29.c -lm
+  110  ./2_29
+  111  gcc -o 2_29 2_29.c -lm
+  112  ./2_29
+  113  gcc -o 2_29 2_29.c -lm
+  114  ./2_29
+  115  gcc -o 2_29 2_29.c -lm
+  116  ./2_29
+  117  gcc -o 2_25 2_25.c
+  118  ./2_25
+  119  gcc -o 2_29 2_29.c
+  120  gcc -o 2_29 2_29 -lmath\
+  121  gcc -o 2_29 2_29 -lmath
+  122  gcc -o 2_29 2_29.c -lmath
+  123  gcc -o 2_29 2_29.c -lm
+  124  ./2_29
+  125  man gcc
+  126  ./2_29
+  127  history
+  128  hisotry
+  129  history
+  130  kate
+  131  history
+  132  kate
+  133  printenv
+  134  cd ~
+  135  cd Desktop
+  136  ls
+  137  cd cs149
+  138  ls
+  139  mkdir WS3
+  140  mkdir A1
+  141  mkdir WS4
+  142  ls
+  143  cd WS3
+  144  gcc -o 4_14 4_14.c
+  145  ./4_14
+  146  gcc -o 4_16 4_16.c
+  147  ./4_16
+  148  gcc -o 5_16 5_16.c
+  149  ./5_16
+  150  gcc -o 5_17 5_17.c
+  151  ./5_17
+  152  gcc -o 5_17 5_17.c
+  153  ./5_17
+  154  gcc -o 5_18 5_18.c
+  155  ./5_18
+  156  gcc -o 5_21 5_21.c
+  157  ./5_21
+  158  gcc -o 5_21 5_21.c
+  159  ./5_21
+  160  gcc -o 5_21 5_21.c
+  161  ./5_21
+  162  gcc -o 5_22 5_22.c
+  163  ./5_22
+  164  gcc -o 5_23 5_23.c
+  165  ./5_23
+  166  cd ..
+  167  cd WS4
+  168  ls
+  169  gcc -o 6_20 6_20.c
+  170  ./6_20
+  171  gcc -o 6_30 6_30.c
+  172  ./6_30
+  173  cd ..
+  174  cd A1
+  175  gcc -o countnames countnames.c
+  176  ./countnames
+  177  d
+  178  git add *.c
+  179  cd ..
+  180  cd WS3
+  181  git add *.c
+  182  cd ..
+  183  cd WS4
+  184  git add *.c
+  185  git status
+  186  git commit -m "A1/W3/W4"
+  187  git push origin master
+  188  ls
+  189  cd Desktop/cs149
+  190  ls
+  191  cd A1
+  192  ls
+  193  gcc -o countnames countnames.c
+  194  ./countnames names.txt
+  195  ./countnames names.txt | sort
+  196  gcc -o countnames countnames.c
+  197  ./countnames names.txt 2> /dev/null | sort
+  198  gcc -o countnames countnames.c -Wall -Werror
+  199  od -a names.txt
+  200  man od
+  201  gcc -o countnames countnames.c -Wall -Werror
+  202  ./countnames names.txt 2> /dev/null
+  203  gcc -o countnames countnames.c -Wall -Werror
+  204  ./countnames names.txt 2> /dev/null
+  205  ./countnames names.txt
+  206  gcc -o countnames countnames.c -Wall -Werror
+  207  ./countnames names.txt
+  208  git status
+  209  git add countnames.c
+  210  git status
+  211  git commit -m "add header"
+  212  git push origin master
+  213  cd ../..
+  214  ls
+  215  cd test2
+  216  ls
+  217  git clone -b master https://github.com/Azlothe/cs149.git
+  218  cd ../cs149
+  219  ls
+  220  cd WS3
+  221  ls
+  222  wget https://github.com/torvalds/linux/archive/master.zip
+  223  unzip master.zip
+  224  cd linux-master
+  225  pwd
+  226  alias l='ls -latr'
+  227  l
+  228  find . name mem.c
+  229  find . -name mem.c
+  230  find . -name mem.c | xargs head
+  231  find . -name mem.c | xargs grep 86
+  232  cd ..
+  233  history
+  234  history > worksheet3.log
