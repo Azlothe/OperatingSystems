@@ -1,5 +1,19 @@
+/**
+ * Description: This takes in 4 integers and outputs the largest and smallest among them.
+ * Author names: Brian Qian
+ * Author emails: brian.qian@sjsu.edu
+ * Last modified date: 2/27/2023
+ * Creation date: 2/14/2023
+ **/
+
 #include <stdio.h>
 
+/**
+ * This function finds the max of the required 4 inputs
+ * Assumption: Called with 4 integer parameter as in Zybooks
+ * Input parameters: 4 integers
+ * Returns: an integer
+**/
 int maxNumber(int num1, int num2, int num3, int num4){
     int nums[] = {num1, num2, num3, num4};
     int max = num1;
@@ -10,6 +24,12 @@ int maxNumber(int num1, int num2, int num3, int num4){
     return max;
 }
 
+/**
+ * This function finds the min of the required 4 inputs
+ * Assumption: Called with 4 integer parameter as in Zybooks
+ * Input parameters: 4 integers
+ * Returns: an integer
+**/
 int minNumber(int num1, int num2, int num3, int num4){
     int nums[] = {num1, num2, num3, num4};
     int min = num1;
