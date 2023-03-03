@@ -83,9 +83,9 @@ int main(int argc, char *argv[]) {
         FILE *fp = fopen(fileName, "r");
         if (fp == NULL){
             printf("range: cannot open file %s\n", fileName);
+
             status = -1;
             write(fd[1], &status, sizeof(int));
-
             return 1;
         }
 
@@ -94,9 +94,9 @@ int main(int argc, char *argv[]) {
         // terminate if passed empty file
         if (fgets(lineInput, maxLength, fp) == NULL) {
             fprintf(stderr, "File %s is empty\n", fileName);
+
             status = -1;
             write(fd[1], &status, sizeof(int));
-
             return 0;
         }
 
@@ -147,19 +147,20 @@ int main(int argc, char *argv[]) {
 
         close(fd[1]); // close parent write
 
+        int errorTotal = 0;
 
         // first child process to end; use it as a base counter
-        BASE_WAIT: wait(NULL);
-
-        read(fd[0], &status, sizeof(int)); // error processing will read a negative integer. success would read in a positive registeredNames value
-
-        if(status > -1) {
-            registeredNames = status;
-            read(fd[0], nameCount, bufferSize);
+        do {
+            wait(NULL);
+            read(fd[0], &status, sizeof(int)); // error processing will read a negative integer. success would read in a positive registeredNames value
         }
-        else
-            goto BASE_WAIT; // current child process did not scan through file; go wait for the next valid one
+        while (status <= -1 && ++errorTotal < num);
 
+        if (errorTotal == num) // all passed files have not been scanned and all child processes exited prematurely
+            return 0;
+
+        registeredNames = status;
+        read(fd[0], nameCount, bufferSize);
 
         name childName[maxNames];
 
