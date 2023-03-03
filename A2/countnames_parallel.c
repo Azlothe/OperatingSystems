@@ -1,3 +1,11 @@
+/**
+ * Description: This counts the occurrences of strings in the inputted text files. It reads the string line by line.
+ * Author names: Brian Qian
+ * Author emails: brian.qian@sjsu.edu
+ * Last modified date: 3/2/2023
+ * Creation date: 3/1/2023
+ **/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -20,14 +28,21 @@ const long bufferSize = maxNames * sizeof(name);
 
 int status;
 
-// equality will be the name.input
+
+/**
+ * This function finds if two inputted name structs are equivalent. It returns 1 for equal and 0 for not equal.
+ * Assumption: o1.input and o2.input are proper C strings
+ * Input parameters: two name parameters
+ * Returns: an integer
+ **/
 int equals(name o1, name o2) {
+    // equality will be based on the name.input
     return (strcmp(o1.input, o2.input) == 0);
 }
 
 
 /**
- * This function finds the index of an equivalent string stored in names. It returns -1 if there is no found index.
+ * This function finds the index of an equivalent string stored in nameCount. It returns -1 if there is no found index.
  * Assumption: input compare is terminated with null character
  * Input parameters: string
  * Returns: an integer
@@ -42,15 +57,6 @@ int indexOf(char compare[]){
     return -1;
 }
 
-name find(name n) {
-    for (int i = 0; i < registeredNames; i++)
-        if (equals(n, nameCount[i]))
-            return nameCount[i];
-
-    //     return NULL;
-    return empty;
-}
-
 int main(int argc, char *argv[]) {
 
     if (argc < 2) {
@@ -60,15 +66,19 @@ int main(int argc, char *argv[]) {
 
     int num = 0; // for parent, num = number of child processes; for child, num = their index in child[] and an assigned text file from argv[]
     pid_t childPID; // to determine if is spawned child
-    pid_t child[argc - 1]; // store PID of child process
+    pid_t child[argc - 1]; // store PID of child process [NOT CURRENTLY NEEDED]
 
     int fd[2];
     pipe(fd); // all children will share pipe
 
-    while (num < argc - 1 && (childPID = fork()) > 0)
+    while (num < argc - 1 && (childPID = fork()) > 0) // 1 parent and one child process for each file
         child[num++] = childPID;
+//         ++num;
 
-    if (childPID == 0) {
+
+    if (childPID == 0) { // BEGIN CHILD PROCESS
+
+        close(fd[0]); // close child read
 
         char *fileName = argv[num+1];
 
@@ -91,8 +101,6 @@ int main(int argc, char *argv[]) {
 
             return 0;
         }
-
-        close(fd[0]); // close child read
 
         // initialize name array with null characters
         for (int i = 0; i < maxNames; i++)
@@ -134,22 +142,27 @@ int main(int argc, char *argv[]) {
         write(fd[1], &registeredNames, sizeof(int));
         write(fd[1], nameCount, bufferSize);
     }
-    else if (childPID > 0) {
+
+    // END CHILD PROCESS ==========================================
+
+    else if (childPID > 0) { // BEGIN PARENT PROCESS
 
         close(fd[1]); // close parent write
 
 
         // first child process to end; use it as a base counter
-        wait(NULL);
+        BASE_WAIT: wait(NULL);
 
-        read(fd[0], &status, sizeof(int));
+        read(fd[0], &status, sizeof(int)); // error processing will read a negative integer. success would read in a positive registeredNames value
 
         if(status > -1) {
             registeredNames = status;
             read(fd[0], nameCount, bufferSize);
         }
+        else
+            goto BASE_WAIT; // current child process did not scan through file; go wait for the next valid one
 
-        int childSize;
+
         name childName[maxNames];
 
 
@@ -160,22 +173,20 @@ int main(int argc, char *argv[]) {
             read(fd[0], &status, sizeof(int));
 
             if(status <= -1)
-                continue;
+                continue; // didn't process through file, so skip to next iteration/wait
 
             read(fd[0], childName, bufferSize);
 
             int j = 0;
             int result;
-            name current;
 
+            // extracted the nameCount from buffer but may not be fully filled in
             while(j < maxNames && !equals(childName[j], empty)){
 
-                current = find(childName[j]);
-
-                if (equals(current, empty))
-                    nameCount[registeredNames++] = childName[j];
+                if ((result = indexOf(childName[j].input)) <= -1)
+                    nameCount[registeredNames++] = childName[j]; // did not find; fill it in
                 else
-                    current.count += childName[j].count;
+                    nameCount[result].count += childName[j].count; // found; add what child counted
 
                 ++j;
             }
@@ -185,6 +196,9 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < registeredNames; i++)
             printf("%s: %d\n", nameCount[i].input, nameCount[i].count);
     }
+
+    // END PARENT PROCESS  =============================================
+
     else
         fprintf(stderr, "error occurred in forking");
 
