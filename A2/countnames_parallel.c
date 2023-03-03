@@ -19,7 +19,7 @@ typedef struct name {
     int count;
 } name;
 
-const name empty = {'\0', 0};
+const name empty = { {'\0', 0} };
 
 name nameCount[maxNames];
 int registeredNames = 0;
