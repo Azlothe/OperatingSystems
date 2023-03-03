@@ -66,14 +66,12 @@ int main(int argc, char *argv[]) {
 
     int num = 0; // for parent, num = number of child processes; for child, num = their index in child[] and an assigned text file from argv[]
     pid_t childPID; // to determine if is spawned child
-    pid_t child[argc - 1]; // store PID of child process [NOT CURRENTLY NEEDED]
 
     int fd[2];
     pipe(fd); // all children will share pipe
 
     while (num < argc - 1 && (childPID = fork()) > 0) // 1 parent and one child process for each file
-        child[num++] = childPID;
-//         ++num;
+        ++num;
 
 
     if (childPID == 0) { // BEGIN CHILD PROCESS
