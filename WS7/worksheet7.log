@@ -1,0 +1,41 @@
+ 1338  gcc -o 6_24 6_24.c
+ 1339  ./6_24
+ 1340  gcc -o lseek_example lseek_example.c
+ 1341  ./lseek_example
+ 1342  ABCDEGHIJKLM
+ 1343  cat start.txt
+ 1344  cat end.txt
+ 1345  gcc -o lseek_example lseek_example.c
+ 1346  ./lseek_example
+ 1347  cat end.txt
+ 1348  ls
+ 1349  gcc -o 6_24 6_24.c
+ 1350  ./6_24
+ 1351  cat start.txt
+ 1352  gcc -o lseek_example lseek_example.c
+ 1353  ./lseek_example
+ 1354  cat end.txt
+ 1355  cd ~
+ 1356  cd Desktop/cs149/WS7
+ 1357  ls | wc
+ 1358  ls
+ 1359  ls | sort
+ 1360  ls | sort | wc
+ 1361  ls -latr
+ 1362  ls -latr /bin/
+ 1363  ls -latr /bin/ > a.out
+ 1364  cat a.out
+ 1365  cat a.out | more
+ 1366  strace
+ 1367  strace ls
+ 1368  man strace
+ 1369  strace ls
+ 1370  strace wc
+ 1371  du -sh
+ 1372  du -sh .
+ 1373  man du
+ 1374  df
+ 1375  df -i
+ 1376  man df
+ 1377  history
+ 1378  history > worksheet7.log
