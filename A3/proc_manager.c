@@ -4,16 +4,9 @@
 #include <fcntl.h>
 #include <math.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 #define maxLength 31
-
-
-// TODO
-// parent wait and print finish message to out file, exit code message to err file
-// error check for exec
-// signal handlers
-
-
 
 char* concatenate(int num, char *suffix){
 
@@ -73,6 +66,8 @@ int main(){
 
     char command[maxLength];
 
+    int status;
+
     int count = 1;
     pid_t childPID;
 
@@ -98,7 +93,36 @@ int main(){
         split(parameters, command, ' ');
 
         execvp(parameters[0], parameters);
+        perror(command);
+        exit(2);
     }
+
+    else if (childPID > 0) {
+        while ((childPID = wait(&status)) > 0) {
+
+            char *outFile = concatenate(childPID, ".out");
+
+            dup2(open(outFile, O_WRONLY | O_APPEND, 0777), STDOUT_FILENO);
+
+            printf("Finished child %d with pid of parent %d\n", childPID, getpid());
+            fflush(stdout);
+
+            char *errFile = concatenate(childPID, ".err");
+
+            dup2(open(errFile, O_WRONLY | O_APPEND, 0777), STDERR_FILENO);
+
+            if (WIFEXITED(status))
+                fprintf(stderr, "Exited with exitcode = %d\n", WEXITSTATUS(status));
+            else if (WIFSIGNALED(status))
+                fprintf(stderr, "Killed with signal %d\n", WTERMSIG(status));
+
+            free(outFile);
+            free(errFile);
+        }
+    }
+
+    else
+        fprintf(stderr, "error occurred in forking");
 
     return 0;
 }
