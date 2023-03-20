@@ -2,9 +2,13 @@
  * Description: This takes in commands (separated by a new line) and runs them in parallel. It creates a .out file for the output and a .err file for any error messages.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 3/16/2023
+ * Last modified date: 3/20/2023
  * Creation date: 3/16/2023
  **/
+
+
+
+// NOTE: Please compile with -lm
 
 #include <stdio.h>
 #include <string.h>
@@ -41,7 +45,7 @@ char* concatenate(int num, char *suffix){
     strcat(concat, suffix);
 
     // store + copy to heap for preservation after function returns
-    char *ret = malloc(concatLength*sizeof(char));
+    char *ret = (char *) malloc(concatLength*sizeof(char));
     strcpy(ret, concat);
     return ret;
 
