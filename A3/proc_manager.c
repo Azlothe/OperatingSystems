@@ -6,10 +6,6 @@
  * Creation date: 3/16/2023
  **/
 
-
-
-// NOTE: Please compile with -lm
-
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
