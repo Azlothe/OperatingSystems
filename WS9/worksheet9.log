@@ -1,0 +1,21 @@
+ 1481  cd ../../apue.3e
+ 1482  ls
+ 1483  ls | grep signal
+ 1484  cd signals
+ 1485  ls | grep sigusr
+ 1486  kate sigusr.c &
+ 1487  make all
+ 1488  ./sigusr &
+ 1489  ps aux
+ 1490  ps aux 3182
+ 1491  ps aux | grep 3182
+ 1492  ps aux | sigusr
+ 1493  ps aux | grep sigusr
+ 1494  kill -SIGUSR1 3182
+ 1495  kill -SIGUSR2 3182
+ 1496  kill -SIGCONT 3182
+ 1497  kill -9 3182
+ 1498  history
+ 1499  cd ../../cs149/WS9
+ 1500  ls
+ 1501  history > worksheet9.log
