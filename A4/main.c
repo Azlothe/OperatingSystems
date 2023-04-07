@@ -130,7 +130,7 @@ int main() {
     // cleanup
     EXIT:
     POP_TRACE();
-    POP_TRACE();
+    terminationCleanup();
 
     return 0;
 }

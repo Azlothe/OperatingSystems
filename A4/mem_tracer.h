@@ -9,3 +9,4 @@ void FREE(void* p,char* file,int line);
 
 void PUSH_TRACE(char* p);
 void POP_TRACE();
+void terminationCleanup();

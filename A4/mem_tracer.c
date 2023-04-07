@@ -3,6 +3,10 @@
 #include <string.h>
 #include <stdarg.h>
 
+#define fileLogName "memtrace.out"
+
+static FILE *fileLog;
+
 /**
  * TRACE_NODE_STRUCT is a linked list of
  * pointers to function identifiers
@@ -33,6 +37,8 @@ void PUSH_TRACE(char* p) // push p on the stack
     static char glob[]="global";
 
     if (TRACE_TOP==NULL) {
+
+        fileLog = fopen(fileLogName, "w");
 
         // initialize the stack with "global" identifier
         TRACE_TOP = (TRACE_NODE*) malloc(sizeof(TRACE_NODE));
@@ -119,12 +125,21 @@ char* PRINT_TRACE()
     return buf;
 } /*end PRINT_TRACE*/
 
+
+
+void terminationCleanup(){
+    fclose(fileLog);
+    free(TRACE_TOP);
+}
+
+
+
 // -----------------------------------------
 // Example of print out:
 // "File mem_tracer.c, line X, function F reallocated the memory segment at address A to a new size S"
 void* REALLOC(void* p,int t,char* file,int line)
 {
-    printf("File %s, line %d, function %s reallocated the memory segment at address %p to a new size %d\n", file, line, PRINT_TRACE(), p, t);
+    fprintf(fileLog, "File %s, line %d, function %s reallocated the memory segment at address %p to a new size %d\n", file, line, PRINT_TRACE(), p, t);
     p = realloc(p,t);
     return p;
 }
@@ -137,7 +152,7 @@ void* MALLOC(int t,char* file,int line)
     void* p;
     p = malloc(t);
 
-    printf("File %s, line %d, function %s allocated new memory segment at address %p to size %d\n", file, line, PRINT_TRACE(), p, t);
+    fprintf(fileLog, "File %s, line %d, function %s allocated new memory segment at address %p to size %d\n", file, line, PRINT_TRACE(), p, t);
 
     return p;
 }
@@ -147,7 +162,7 @@ void* MALLOC(int t,char* file,int line)
 // "File mem_tracer.c, line X, function F deallocated the memory segment at address A"
 void FREE(void* p,char* file,int line)
 {
-    printf("File %s, line %d, function %s deallocated the memory segment at address %p\n", file, line, PRINT_TRACE(), p);
+    fprintf(fileLog, "File %s, line %d, function %s deallocated the memory segment at address %p\n", file, line, PRINT_TRACE(), p);
 
     free(p);
 }
