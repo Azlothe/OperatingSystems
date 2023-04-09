@@ -1,10 +1,19 @@
+/**
+ * Description: This will keep track of your function calls and memory usage (i.e. malloc, realloc, free). Reports in memory usage will be printed out to name specified by FILE_LOG_NAME. It is set as "memtrace.out" for now.
+ * Author names: Brian Qian
+ * Author emails: brian.qian@sjsu.edu
+ * Last modified date: 4/8/2023
+ * Creation date: 3/31/2023
+ **/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
-#define fileLogName "memtrace.out"
+#define FILE_LOG_NAME "memtrace.out"
 
+// FILE pointer to where memory logging will be outputted
 static FILE *fileLog;
 
 /**
@@ -38,7 +47,10 @@ void PUSH_TRACE(char* p) // push p on the stack
 
     if (TRACE_TOP==NULL) {
 
-        fileLog = fopen(fileLogName, "w");
+        // stack is empty
+
+        // create/open file and empty it for current execution
+        fileLog = fopen(FILE_LOG_NAME, "w");
 
         // initialize the stack with "global" identifier
         TRACE_TOP = (TRACE_NODE*) malloc(sizeof(TRACE_NODE));
@@ -126,14 +138,6 @@ char* PRINT_TRACE()
 } /*end PRINT_TRACE*/
 
 
-
-void terminationCleanup(){
-    fclose(fileLog);
-    free(TRACE_TOP);
-}
-
-
-
 // -----------------------------------------
 // Example of print out:
 // "File mem_tracer.c, line X, function F reallocated the memory segment at address A to a new size S"
@@ -165,4 +169,16 @@ void FREE(void* p,char* file,int line)
     fprintf(fileLog, "File %s, line %d, function %s deallocated the memory segment at address %p\n", file, line, PRINT_TRACE(), p);
 
     free(p);
+}
+
+
+/**
+ * This function frees the memory of the log file and the stack "global" identifier
+ * Assumption: This function is called after POP_TRACE() within program main function
+ * Input parameters: N/A
+ * Returns: N/A
+ **/
+void terminationCleanup(){
+    fclose(fileLog);
+    free(TRACE_TOP);
 }
