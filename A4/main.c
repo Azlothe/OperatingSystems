@@ -2,7 +2,7 @@
  * Description: This reads in inputs and stores them into a linked list. Memory usage is traced.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 4/8/2023
+ * Last modified date: 4/9/2023
  * Creation date: 3/31/2023
  **/
 
@@ -11,7 +11,7 @@
 #include <string.h>
 #include "mem_tracer.h"
 
-#define GROWTH_FACTOR 1.61 // golden ratio factor to effectively reuse old memory for dynamic structures
+#define GROWTH_FACTOR 1.61 // Golden ratio factor to effectively reuse old memory for dynamic structures
 
 struct LinkedListNode {
     char *str;
@@ -22,7 +22,7 @@ struct LinkedListNode {
 typedef struct LinkedListNode LinkedListNode;
 
 typedef struct LinkedList {
-    LinkedListNode *head;
+    LinkedListNode *head; // For this program, we only need the head. We do not have a strict need to store the tail at all times.
 } LinkedList;
 
 
@@ -90,7 +90,7 @@ void freeLinkedList(LinkedList *list) {
     PUSH_TRACE("freeLinkedList");
 
     LinkedListNode *iterate = list->head;
-    LinkedListNode *next; // save the next node to move to after freeing iterate
+    LinkedListNode *next; // *next holds the next node to move to after freeing iterate. iterate should not access its next after being freed.
     while (iterate) {
         next = iterate->next;
         free(iterate);
@@ -116,7 +116,7 @@ int main() {
         goto EXIT;
     }
 
-    // Successfully read the first input and was valid
+    // Getting to this line means we successfully read the first input and was valid
 
     int allocatedItems = 10;
     char **array = malloc(allocatedItems * sizeof(char*));
