@@ -2,7 +2,7 @@
  * Description: This module reads in and stores contacts with their names and phone numbers. Functions for ContactNode are defined here.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 4/13/2023
+ * Last modified date: 4/17/2023
  * Creation date: 4/13/2023
  **/
 
@@ -17,6 +17,7 @@ ContactNode *InitializeContactNode(char name[], char phoneNum[]) {
 
     strcpy(new->contactName, name);
     strcpy(new->contactPhoneNumber, phoneNum);
+    new->nextNodePtr = NULL;
 
     return new;
 }
@@ -29,8 +30,16 @@ char *GetPhoneNumber(ContactNode *contact){
     return contact->contactPhoneNumber;
 }
 
-void InsertAfter(ContactNode *previous, ContactNode *next){
-    previous->nextNodePtr = next;
+// Insert the *toInsert ContactNode after *previous.
+void InsertAfter(ContactNode *previous, ContactNode *toInsert){
+
+    if (previous == NULL) return; // Handle case where we try to insert where the previous refers to NULL
+
+    ContactNode *next = previous->nextNodePtr;
+
+    previous->nextNodePtr = toInsert;
+    toInsert->nextNodePtr = next; // Can handle cases at the tail of the linked list where next = NULL and intermediate insertions
+
 }
 
 ContactNode *GetNext(ContactNode *current){

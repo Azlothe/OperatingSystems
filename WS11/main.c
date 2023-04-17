@@ -2,7 +2,7 @@
  * Description: This module reads in and stores contacts with their names and phone numbers.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 4/13/2023
+ * Last modified date: 4/17/2023
  * Creation date: 4/13/2023
  **/
 
@@ -90,6 +90,7 @@ int main(){
 
     while (count <= CONTACTS) {
         previous->nextNodePtr = promptContact(count++);
+        // InsertAfter(previous, promptContact(count++)); // no need to always call InsertAfter since we're only inserting at the tail and we keep track of it with *previous
         previous = previous->nextNodePtr;
     }
 
