@@ -49,7 +49,7 @@ slot.
 static struct nlist *hashtab[HASHSIZE]; // pointer table
 
 // Form hash value for input pid
-unsigned hash(unsigned int pid) {
+unsigned hash(int pid) {
     // TODO simple hash function, may change
     return pid % HASHSIZE;
 }
@@ -98,6 +98,23 @@ struct nlist *insert(char *command, int pid, int index) {
 }
 
 
+void freeHashTable(struct nlist **hashTable){
+
+    for (int i = 0; i < HASHSIZE; i++){
+        struct nlist *hashSlotNode = hashTable[i];
+
+        while (hashSlotNode != NULL) {
+            free(hashSlotNode->command);
+
+            struct nlist *nextNode = hashSlotNode->next;
+            free(hashSlotNode);
+
+            hashSlotNode = nextNode;
+        }
+    }
+}
+
+
 // Split a character array into strings separated by an inputted delimiter
 char **split(char *input, char delim) {
 
@@ -107,7 +124,7 @@ char **split(char *input, char delim) {
         if (input[i] == delim)
             ++delimCount;
 
-    char **strings = (char **) malloc(delimCount * sizeof(char *));
+    char **strings = (char **) malloc( (delimCount + 1) * sizeof(char *));
 
     int strNum = 0;
     int written = 0;
@@ -161,6 +178,10 @@ void redirectToFilePID(int pid){
 
 
 int main(){
+
+    for (int i = 0; i < HASHSIZE; i++)
+        hashtab[i] = NULL;
+
     char *input = NULL;
     size_t size = 0;
 
@@ -188,6 +209,8 @@ int main(){
 
         redirectToFilePID(getpid());
 
+        EXECUTE_COMMAND:
+
         printf("Starting command %d: child %d pid of parent %d\n", count, getpid(), getppid());
         fflush(stdout); // flush buffer before exec. otherwise, will not be printed as buffer gets overrided by exec
 
@@ -204,17 +227,49 @@ int main(){
 
             clock_gettime(CLOCK_MONOTONIC, &currentTime);
 
+            redirectToFilePID(forkPID);
+
+            if (WIFEXITED(status))
+                fprintf(stderr, "Exited with exitcode = %d\n", WEXITSTATUS(status));
+
+            else if (WIFSIGNALED(status))
+                fprintf(stderr, "Killed with signal %d\n", WTERMSIG(status));
+
             struct nlist *completedProcess = lookup(forkPID);
             completedProcess->finishTime = currentTime;
 
             double elapsed = currentTime.tv_sec - (completedProcess->startTime).tv_sec;
 
-            redirectToFilePID(forkPID);
-
             printf("Finished at %ld, runtime duration %.1f\n", currentTime.tv_sec, elapsed);
             fflush(stdout); // flush now on handling current child. otherwise, the prints will stay in the buffer and be dumped in the wrong child output file
 
+
+            if (elapsed > 2){
+
+                clock_gettime(CLOCK_MONOTONIC, &currentTime);
+
+                input = completedProcess->command;
+                count = completedProcess->index;
+
+                if ((forkPID = fork()) == 0) { // Restarted child process
+                    redirectToFilePID(getpid());
+                    printf("RESTARTING\n");
+                    fprintf(stderr, "RESTARTING\n");
+
+                    goto EXECUTE_COMMAND;
+                }
+
+                struct nlist *hashNode = insert(input, forkPID, count);
+                hashNode->startTime = currentTime;
+
+            }
+            else
+                fprintf(stderr, "spawning too fast\n");
+
         }
+
+        free(input);
+        freeHashTable(hashtab);
     }
     else
         fprintf(stderr, "error occurred in forking");
