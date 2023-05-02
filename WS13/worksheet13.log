@@ -1,0 +1,83 @@
+ 2002  ls
+ 2003  cd apue.3e
+ 2004  ls
+ 2005  ls | grep file
+ 2006  rsync -arv filedir/ filedir1/
+ 2007  cp -r filedir/ filedir2/
+ 2008  ls -latr filedir1
+ 2009  ls -latr filedir1/
+ 2010  ls -latr filedir2/
+ 2011  cd firedir1
+ 2012  cd filedir1
+ 2013  cd ..
+ 2014  ls
+ 2015  ls -latr filedir1/
+ 2016  ls -latr filedir2/
+ 2017  ls -latr filedir
+ 2018  ls -latr filedir1
+ 2019  ls -latr filedir2
+ 
+ What difference do you observe between the two directories?
+ 
+ I observe that the modified dates are different. The rsync command preserved the original, whereas cp gave copied files with new modified dates. Rsync synced and cp copied.
+ 
+ 
+ 2020  man ln
+ 2021  man du
+ 2022  du
+ 2023  man du
+ 2024  ls
+ 2025  cd filedir2
+ 2026  ls
+ 2027  cat access.c 
+ 2028  cat zap.c 
+ 2029  du access.c 
+ 2030  du
+ 2031  man df
+ 2032  df
+ 2033  df access.c 
+ 2034  df .
+ 2035  man find
+ 2036  ls
+ 2037  find .
+ 2038  cd ..
+ 2039  find . -name /access
+ 2040  find . -name access.c
+ 2041  find . -name access
+ 2042  find . -name access.c
+ 2043  cd filedir2
+ 2044  cd ../filedir1
+ 2045  man locate
+ 2046  man rmdir
+ 2047  man rm
+ 2048  man mkdir
+ 2049  mkdir test
+ 2050  ls
+ 2051  rmdir test
+ 2052  ls
+ 2053  touch test.txt
+ 2054  ls
+ 2055  cat test.txt 
+ 2056  rm test.txt 
+ 2057  ls
+ 2058  man stat
+ 2059  stat
+ 2060  man stat
+ 2061  stat access.c 
+ 2062  stat .
+ 2063  cd ../..
+ 2064  ls
+ 2065  cd cs149
+ 2066  ls
+ 2067  mkdir WS13
+ 2068  cd WS1
+ 2069  ls
+ 2070  cd ../WS13
+ 2071  history
+ 2072  man fc
+ 2073  tail history
+ 2074  histroy | tail
+ 2075  history | tail
+ 2076  history | tail -30
+ 2077  history | tail -100
+ 2078  history | tail -100 > worksheet13.log
