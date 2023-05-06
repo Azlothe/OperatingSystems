@@ -2,7 +2,7 @@
  * Description: This uses mutex locking to handle concurrent accesses. Sequentiality is minimized by locking nodes, not entire slots or the table.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 5/3/2023
+ * Last modified date: 5/5/2023
  * Creation date: 5/1/2023
  **/
 
@@ -108,7 +108,6 @@ ConcurrentHashTable *initializeHashTable(ConcurrentHashTable *hashtab){
 }
 
 
-// TODO make key generic
 /**
  * This function looks up an nlist in the hash table based on the key. The key here is based on the name
  * Assumptions:
@@ -128,19 +127,20 @@ struct nlist *lookup(ConcurrentHashTable *hashtab, char *key) {
     // Traverse the linked list under calculated slot
     while (np){
 
-        // Critical section: reading mutable key. If we strictly assume key may never change after being inserted, we may reduce the critical section to only the head of each linked list. We only modify at the head of each list when we insert in the hash table slots.
-        pthread_mutex_lock(&np->nodeLock);
+        // Temporarily save the lock as np will be changed within the critical section
+        pthread_mutex_t tempLock = np->nodeLock;
+
+        // Critical section: accessing mutable np. If we strictly assume no change on any entries after being inserted, we may reduce the critical section to only the head of each linked list. We only modify at the head of each list when we insert in the hash table slots.
+        pthread_mutex_lock(&tempLock);
 
         if (strcmp(key, np->name) == 0) {
             // found
-            pthread_mutex_unlock(&np->nodeLock);
+            pthread_mutex_unlock(&tempLock);
             return np;
         }
-
-        pthread_mutex_unlock(&np->nodeLock);
-
-        // No critical section because links between nodes will not change based on our hash table implementation.
         np = np->next;
+
+        pthread_mutex_unlock(&tempLock);
     }
 
     return NULL; // not found
@@ -173,6 +173,7 @@ struct nlist *insert(ConcurrentHashTable *hashtab, char *name) {
 
         pthread_mutex_init(&np->nodeLock, NULL);
 
+        // Get address of corresponding slot in hash table
         struct nlist **slot = hashtab->bucket + tableHash(hashtab, name); // equivalently the address of &bucket[tableHash]
 
         // We insert at the head of the linked list

@@ -2,7 +2,7 @@
  * Description: This counts the occurrences of strings in the inputted text files. Each file is assigned to a thread. They read the strings line by line.
  * Author names: Brian Qian
  * Author emails: brian.qian@sjsu.edu
- * Last modified date: 5/3/2023
+ * Last modified date: 5/5/2023
  * Creation date: 5/1/2023
  **/
 
@@ -35,6 +35,20 @@ int logIndex = 0;
 pthread_mutex_t logIndexLock = PTHREAD_MUTEX_INITIALIZER;
 
 static ConcurrentHashTable *nameCount; // using a hashtable to store the names and counts
+
+
+// Store the thread that created this THREADDATA
+typedef struct THREADDATA_STRUCT {
+    pthread_t creator;
+} THREADDATA;
+
+/**
+ * *p is global to all threads
+ * Despite threads sharing the heap, THREADDATA should be malloc'd and freed by the same thread
+ * Lock is needed as concurrent malloc and free operations are prone to race conditions
+ */
+THREADDATA *p = NULL;
+pthread_mutex_t threadDataLock = PTHREAD_MUTEX_INITIALIZER;
 
 
 /**
@@ -76,12 +90,63 @@ void printLog(char *formatMessage, ...){
 
 
 /**
+ * This function allocates memory for THREADDATA to pointer *p
+ * Assumption: *p is global
+ * Input parameters: N/A
+ * Returns: N/A
+ **/
+void createThreadData(){
+    pthread_t me = pthread_self();
+
+    // Critical section: Concurrent malloc from different threads may cause memory leaks
+    pthread_mutex_lock(&threadDataLock);
+
+    if (p == NULL) {
+        p = (THREADDATA*) malloc(sizeof(THREADDATA));
+        p->creator=pthread_self();
+    }
+
+    pthread_mutex_unlock(&threadDataLock);
+
+    printLog( (p && p->creator == me) ? "This is thread %ld and I created THREADDATA %p\n" : "This is thread %ld and I can access the THREADDATA %p\n", me, p);
+}
+
+
+/**
+ * This function frees the memory associated with THREADDATA by pointer *p
+ * Assumption: *p is global
+ * Input parameters: N/A
+ * Returns: N/A
+ **/
+void freeThreadData(){
+
+    pthread_t me = pthread_self();
+
+    // Critical section: Multiple frees on same pointer have undefined behavior. The multiple frees are even more likely to occur with concurrent threads.
+    pthread_mutex_lock(&threadDataLock);
+
+    if (p && p->creator == me) {
+        printLog("This is thread %ld and I delete THREADDATA\n", me);
+
+        free(p);
+        p = NULL;
+    }
+    else
+        printLog("This is thread %ld and I can access the THREADDATA\n",me);
+
+    pthread_mutex_unlock(&threadDataLock);
+}
+
+
+/**
  * This function takes in a file and counts occurrences of newline-separated strings.
  * Assumption: N/A (fileName should refer to a file, but error can be handled)
  * Input parameters: a void pointer
  * Returns: NULL
  **/
 void *readFile(void *fileName) {
+
+    createThreadData();
 
     FILE *fp = fopen(fileName, "r");
     if (fp == NULL) {
@@ -128,6 +193,8 @@ void *readFile(void *fileName) {
     // END COUNTING COMPLETED
 
     fclose(fp);
+
+    freeThreadData();
 
     return NULL;
 }
